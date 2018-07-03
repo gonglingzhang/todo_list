@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block title %}详情{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <h3 class="page-title"><span class="question-time">待做事件</span></h3>
+        <form action="/operate/" method="post">
+            <div class="form-group">
+                <div class="input-group">
+                <span class="input-group-addon">{{ todo.date }}</span>
+                <input type="text" class="form-control" required="required" maxlength="100" value="{{ todo.title }}" name="title">
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" name="content">{{ todo.content }}</textarea>
+            </div>
+            <div style="width: 500px;">
+                <div style="width: 200px; float: left; padding: 0 20px;"><input type="submit" class="btn btn-primary btn-block" name="update" value="修改"></div>
+                <div style="width: 200px; float: right; padding: 0 20px;"><input type="submit" class="btn btn-primary btn-block" name="delete" value="删除"></div>
+            </div>
+            <input type="hidden" name="todo_id" value="{{ todo.id }}">
+        </form>
+    </div>
+{% endblock %}

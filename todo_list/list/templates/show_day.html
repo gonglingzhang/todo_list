@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block title %}待做{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/todo_list.css' %}">
+{% endblock %}
+
+{% block body %}
+    <form action="/done/" method="post">
+    <h3 class="page-title">{{ date }}</h3>
+        <ul>
+            {% for todo in todos_day %}
+                {% if todo.status == 'todo' %}
+                    <li class="index-li">
+                        <div class="question-group">
+                            <p class="question-title">
+                            <span><a href="/detail-{{ todo.id }}/" name="done">{{ todo.title }}</a></span>
+                            </p>
+                            <p class="question-content" style="text-align: left; padding-left: 10px;">
+                                {{ todo.content }}
+                            </p>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </form>
+{% endblock %}

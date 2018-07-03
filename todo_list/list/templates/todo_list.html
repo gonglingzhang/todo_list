@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block title %}待做列表{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/todo_list.css' %}">
+    <script>
+        var today = new Date().toLocaleDateString()
+
+        function isToday(str) {
+            str = str.replace('年', '/').replace('月', '/').replace('日', '')
+            if (str == today) {
+                document.write('今天')
+            }
+        }
+
+        function isDone(str) {
+            str = str.replace('年', '/').replace('月', '/').replace('日', '')
+            if (str > today) {
+                document.write('待完成')
+            } else if (str == today) {
+                document.write('加油！')
+            } else {
+                document.write('未完成')
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <form action="/done/" method="post">
+        <ul>
+            {% for todo in todos %}
+                {% if todo.status == 'todo' %}
+                    <li class="index-li">
+                        <div class="question-group">
+                            <p class="question-title">
+                            <span><a href="/detail-{{ todo.id }}/">{{ todo.title }}</a></span>
+                            </p>
+                            <p class="question-content" style="text-align: left; padding-left: 10px;">
+                                {{ todo.content }}
+                            </p>
+                            <div class="question-info">
+                                <span style="float: right; width: 50px;"><a href="/done-{{ todo.id }}/">完成</a></span>
+                                <span style="float: right; width: 70px;"><script>isDone('{{ todo.date }}')</script></span>
+                                <span style="float: right; width: 100px"><a href="/show_day-{{ todo.id }}/">{{ todo.date }}</a></span>
+                                <span style="float: right; width: 50px;"><script>isToday('{{ todo.date }}')</script></span>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </form>
+{% endblock %}

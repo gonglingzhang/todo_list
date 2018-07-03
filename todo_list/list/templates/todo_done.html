@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block title %}已做列表{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/todo_list.css' %}">
+{% endblock %}
+
+{% block body %}
+    <form action="/done/" method="post">
+        <ul>
+            {% for todo_done in todo_dones %}
+                {% if todo_done.status == 'done' %}
+                    <li class="index-li">
+                        <div class="question-group">
+                            <p class="question-title">
+                            <span><a href="/detail_done-{{ todo_done.id }}/" name="done">{{ todo_done.title }}</a></span>
+                            </p>
+                            <p class="question-content" style="text-align: left; padding-left: 10px;">
+                                {{ todo_done.content }}
+                            </p>
+                            <div class="question-info">
+                                <span class="question-time">{{ todo_done.date }}</span>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </form>
+{% endblock %}
