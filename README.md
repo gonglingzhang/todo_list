@@ -1,6 +1,7 @@
 # todo_list
 刚开始接触django，用其开发的一个todo_list，数据库用的是postgresql，本想用django-rest-framework，结果学得不明不白的，就先用django开发了....
 
+可以[点这里](http://47.100.125.18:8000/login/)进行访问。
 #### 功能简介
 
 - 注册和登陆功能
